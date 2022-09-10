@@ -1,0 +1,16 @@
+﻿.card:hover {
+    background: #E0DED7;
+}
+
+.book-list {
+    -moz-columns: 20rem;
+    -webkit-columns: 20rem;
+    -ms-columns: 20rem;
+    columns: 20rem;
+}
+
+.book-item {
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+}

@@ -1,0 +1,70 @@
+﻿@model BookStorage.Areas.Admin.ViewModels.CreateBookViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "_Layout";
+}
+
+
+<h1>Create book</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-route-area="Admin" asp-controller="Book" asp-action="Create" method="post" enctype="multipart/form-data" >
+            <div class="file-upload">
+                <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
+
+                <div class="image-upload-wrap">
+                    <input class="file-upload-input" asp-for="UploadedFile" type='file' onchange="readURL(this);" accept="image/*" />
+                    <div class="drag-text">
+                        <h3>Drag and drop a file or select add Image</h3>
+                    </div>
+                </div>
+                <div class="file-upload-content">
+                    <img class="file-upload-image" src="#" alt="your image" />
+                    <div class="image-title-wrap">
+                        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Book.Name"></label>
+                <input asp-for="Book.Name" class="form-control"/>
+                <span asp-validation-for="Book.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Book.Description"></label>
+                <input asp-for="Book.Description" class="form-control"/>
+                <span asp-validation-for="Book.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Book.PublicationDate">Publication date</label>
+                <input asp-for="Book.PublicationDate" class="form-control"/>
+                <span asp-validation-for="Book.PublicationDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Book.Rating"></label>
+                <input asp-for="Book.Rating" class="form-control"/>
+                <span asp-validation-for="Book.Rating" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Publishing house</label>
+                @Html.DropDownListFor(x => x.Book.PublishingHouseId, ViewBag.PublishingHouses as IEnumerable<SelectListItem>, new {@class = "form-control"})
+                <span asp-validation-for="Book.PublishingHouseId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@Html.Partial("_ValidationScriptsPartial")

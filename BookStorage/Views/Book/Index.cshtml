@@ -1,0 +1,38 @@
+﻿@using BookStorage.ViewModels
+@model BooksViewModel
+@{
+    ViewData["Title"] = "Books";
+}
+
+<nav class="navbar navbar-expand-lg ">
+    <form method="get" asp-action="Index" asp-controller="Book">
+        @Html.DropDownList("PublishingHouse", Model.PublishingHouses,
+            htmlAttributes: new { @class = "form-control" })
+        <input type="submit" value="Filter" class="btn-dark p-2 m-2" />
+    </form>
+</nav>
+
+<ul class="book-list">
+        @foreach (var book in Model.Books)
+        {
+            <li class="book-item">
+                <div class="card float-left m-1" style="width: 20rem;">
+                    <img class="card-img-top" src="@book.ImageLink" alt="Book image">
+                    <div class="card-body">
+                        <h5 class="card-title">@book.Name</h5>
+                        <p>@book.Description</p>
+                        <p>Publication date : @book.GetPublicationDateByFormat()</p>
+                        <p>Rating: @book.Rating</p>
+                    </div>
+                    <div class="card-body">
+                        <a asp-action="Info" asp-route-id="@book.Id" class="card-link">More info about book</a>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+
+
+
+
+

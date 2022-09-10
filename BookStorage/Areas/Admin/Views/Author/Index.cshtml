@@ -1,0 +1,40 @@
+﻿@using BookStorage.Models
+@model List<BookStorage.Models.Author>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout";
+}
+
+<a class="btn bg-primary text-white text-center m-2 p-2" asp-action="Create" >Create</a>
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Books</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var author in Model)
+    {
+
+        <tr>
+            <td>@author.Name</td>
+            <td>@author.Surname</td>
+            <td>
+                @foreach (var book in author.BookAuthors)
+                {
+                    <p>@book.Book.Name</p>
+                }
+            </td>
+            <td><a class="form-control bg-primary text-white" asp-action="Edit" asp-route-id="@author.Id">Edit</a></td>
+            <td><a class="form-control bg-danger  text-white" asp-action="Delete" asp-route-id="@author.Id">Delete</a></td>
+        </tr>
+    }
+    </tbody>
+
+</table>
+

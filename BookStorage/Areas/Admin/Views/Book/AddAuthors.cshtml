@@ -1,0 +1,23 @@
+﻿@using System.Security.Cryptography.X509Certificates
+@model BookStorage.Areas.Admin.ViewModels.AddAuthorsViewModel
+@{
+    ViewData["Title"] = "AddAuthors";
+    Layout = "_Layout";
+}
+
+
+<h2>Change authors </h2>
+
+<form asp-action="AddAuthors" method="post">
+    <input type="hidden" name="id" value="@Model.BookId"/>
+    <div class="form-group">
+        @foreach (var author in Model.AllAuthors)
+        {
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="authorsId" value="@author.Id" @(Model.BookAuthors.FirstOrDefault(x => x.Id == author.Id) != null ? "checked=\"checked\"" : "") />
+                @author.Name  @author.Surname<br />
+            </div>
+        }
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

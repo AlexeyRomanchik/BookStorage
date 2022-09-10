@@ -1,0 +1,30 @@
+﻿@model BookStorage.Models.Author
+@{
+    ViewData["Title"] = "Info";
+}
+
+<table class="table table-hover">
+    <tbody>
+    <tr>
+        <td>Name</td>
+        <td>@Model.Name</td>
+    </tr>
+    <tr>
+        <td>Surname</td>
+        <td>@Model.Surname</td>
+    </tr>
+    <tr>
+        <td>Books</td>
+        <td>
+            @foreach (var book in Model.BookAuthors)
+            {
+                <p>
+                    <a asp-controller="Book" asp-action="Info" asp-route-id="@book.BookId">
+                        @book.Book.Name
+                    </a>
+                </p>
+            }
+        </td>
+    </tr>
+    </tbody>
+</table>

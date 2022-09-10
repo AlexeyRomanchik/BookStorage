@@ -1,0 +1,54 @@
+﻿@model BookStorage.ViewModels.BooksViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout";
+}
+
+<nav class="navbar navbar-expand-lg ">
+    <form method="get" asp-action="Index" asp-controller="Book">
+        @Html.DropDownList("PublishingHouse", Model.PublishingHouses,
+            htmlAttributes: new { @class = "form-control" })
+        <input type="submit" value="Filter" class="btn-dark p-2 m-2" />
+    </form>
+</nav>
+
+
+<a class="btn bg-primary text-white text-center m-2 p-2" asp-action="Create">Create</a>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Publication date</th>
+            <th>Publishing house</th>
+            <th>Rating</th>
+            <th>Authors</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var book in Model.Books)
+        {
+
+            <tr>
+                <td>@book.Name</td>
+                <td>@book.GetPublicationDateByFormat()</td>
+                <td>@book.PublishingHouse?.Name</td>
+                <td>@book.Rating</td>
+                <td>
+                    @foreach (var author in book.BookAuthors)
+                    {
+                        <p>@author.Author.Name @author.Author.Surname</p>
+                    }
+                </td>
+                <td><a class="form-control bg-primary text-white" asp-action="Edit" asp-route-id="@book.Id">Edit</a></td>
+                <td><a class="form-control bg-secondary text-white" asp-action="AddAuthors" asp-route-id="@book.Id">Authors</a></td>
+                <td><a class="form-control bg-danger  text-white" asp-action="Delete" asp-route-id="@book.Id">Delete</a></td>
+            </tr>
+        }
+    </tbody>
+
+</table>
+

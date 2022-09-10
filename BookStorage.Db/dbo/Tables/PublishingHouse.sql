@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[PublishingHouse]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
+    [Name] NVARCHAR(64) NOT NULL
+)
